@@ -2,10 +2,18 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Resource route
+// Resource Routes
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource("blog", BlogController::class);
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -17,4 +25,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
